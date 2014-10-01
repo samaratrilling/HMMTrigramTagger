@@ -18,8 +18,8 @@ public class Q5 {
 	public static void main (String[] args) {
 		
 		System.out.println("You're about to run question 5. I'm reading tag n-gram counts from ner.counts");
-		String countsFile = "ner3.counts";
-		String devFile = "ner_dev.dat";
+		String countsFile = "../ner3.counts";
+		String devFile = "../ner_dev.dat";
 		String taggedFile = "q6ViterbiTagged.dat";
 		nGramCounts = new HashMap<String, Integer>();
 		tags = new ArrayList<String>();
