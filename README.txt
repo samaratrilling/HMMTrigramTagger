@@ -20,6 +20,23 @@ just using the pre-saved output in count2.dat
 	on ner_train2.dat into ner2.counts, so you can view it there.
 
 -
+FOR QUESTION 5:
+
+Run Q5.java.
+
+-
+FOR QUESTION 6:
+
+Run Q6.java. It will ask if you want to rerun the function that replaces rare words OR
+just use the pre-saved output in count3.dat.
+- If you choose to rerun the function, note that running the function that replaces rare words
+	can take up to 15 minutes. The replacement function produces ner_train3.dat.
+	You should then run count_freqs.py on ner_train3.dat and pipe the results into a new file.
+	$	python count_freqs.py ner_train3.dat > newFile
+
+	- If you choose to use the already-saved output: I have saved the output of re-running count_freqs.py
+	on ner_train3.dat into ner3.counts, so you can view it there.
+
 
 --------------------------------------------------------------------------------------------------
 DESIGN
@@ -35,6 +52,9 @@ it stops scanning. This is just to lower runtime and could be changed if the dat
 
 C. For question 5A, I'm assuming that the bigrams and trigrams we're reading in will be perfect data - 
 e.g. there will only be one line for each trigram or bigram.
+
+D. For question 6, the code is virtually the same as in question 4, it just has a few more options for
+_RARE_ tags.
 --------------------------------------------------------------------------------------------------
 PERFORMANCE for algorithm (precision, recall, F-score)
 and OBSERVATIONS
@@ -80,5 +100,20 @@ because they have more diverse potential meanings and need more context to deter
 what the correct tag is.
 ----
 Q6:
+Found 5855 NEs. Expected 5931 NEs; Correct: 4182.
+	 precision 	recall 		F1-Score
+Total:	 0.714261	0.705109	0.709656
+PER:	 0.776796	0.764962	0.770833
+ORG:	 0.501156	0.647982	0.565189
+LOC:	 0.827763	0.702290	0.759882
+MISC:	 0.818182	0.674267	0.739286
 
+This is with one extra rare tag, INITCAP, instead of just tagging all words as rare.
+If a word's first character was capitalized and it was seen less than 5 times, then
+it's treated as INITCAP.
+The precision increased for MISC in this case, and recall increased, but precision went
+down for some particular tags. However, you can see that it found nearly all of the expected
+named entities and it got a much higher percentage of them correct.
+The Fscores are, on the whole, better than for the normal RARE viterbi run, with the exception
+of LOC.
 --------------------------------------------------------------------------------------------------

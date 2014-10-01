@@ -228,9 +228,6 @@ public class Q4 {
 				if (targetLine.equals(s)) {
 					//System.out.println("toCompare: " + toCompare + " fullWord: " + s);
 					// Only replace toCompare if it's its own word, not if it's inside another
-					for (int i = 0; i<s.length(); i++) {
-						
-					}
 					targetLine = targetLine.replace(toCompare + " ", "_RARE_ ");
 					System.out.println(targetLine);
 					//System.out.println("new target line: " + targetLine);

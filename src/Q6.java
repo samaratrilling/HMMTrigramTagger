@@ -29,11 +29,9 @@ public class Q6 {
 			if (choice == 1) {
 				rerunRareReplacement();
 			}
-			System.out.println("Using a simple HMM tagger to generate probabilities for all words in ner_dev.dat.\n" + 
-					"Results will be in q4Tagged.dat.\n");
-			//calculateAllProbabilities("ner2.counts", "ner_dev.dat", "q4Tagged.dat");
+			System.out.println("Replacing words with descriptive rare parameters. Writing"
+					+ "to ner_train3.dat.\n");
 		}
-		
 		catch(IOException e) {
 			e.printStackTrace();	
 		}
@@ -197,7 +195,7 @@ public class Q6 {
 		readCounts = new BufferedReader(new FileReader("ner.counts"));
 		readTraining = new BufferedReader(new FileReader("ner_train.dat"));
 		readTest = new BufferedReader(new FileReader("ner_dev.dat"));
-		trainWriter = new FileWriter("ner_train2.dat", true);
+		trainWriter = new FileWriter("ner_train3.dat", true);
 		testWriter = new FileWriter("ner_dev2.dat", true);
 
 		// Get the strings that need to be replaced.
@@ -234,19 +232,15 @@ public class Q6 {
 					 * QUESTION 6: P
 					 */
 					boolean initialCap = false;
-					boolean allCaps = true;
-					for (int i = 0; i<s.length(); i++) {
-						if (Character.isUpperCase(s.charAt(i))) {
-							if (initialCap == false) {
-								initialCap = true;
-							}
-						}
-						else {
-							allCaps = false;
-							break;
-						}
+					if (Character.isUpperCase(s.charAt(0))) {
+						initialCap = true;
 					}
-					targetLine = targetLine.replace(toCompare + " ", "_RARE_ ");
+					if (initialCap) {
+						targetLine = targetLine.replace(toCompare + " ", "_INITCAP_ ");
+					}
+					else {
+						targetLine = targetLine.replace(toCompare + " ", "_RARE_ ");
+					}
 					System.out.println(targetLine);
 					//System.out.println("new target line: " + targetLine);
 					break;

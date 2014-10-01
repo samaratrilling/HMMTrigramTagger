@@ -20,9 +20,9 @@ public class Q5 {
 		
 		Scanner in = new Scanner(System.in);
 		System.out.println("You're about to run question 5. I'm reading tag n-gram counts from ner.counts");
-		String countsFile = "ner2.counts";
+		String countsFile = "ner3.counts";
 		String devFile = "ner_dev.dat";
-		String taggedFile = "q5ViterbiTagged.dat";
+		String taggedFile = "q6ViterbiTagged.dat";
 		nGramCounts = new HashMap<String, Integer>();
 		tags = new ArrayList<String>();
 		tagFreqs = new HashMap<String, Integer>();
@@ -34,9 +34,6 @@ public class Q5 {
 			nGramCounts = readTagCounts(countsFile);
 			ArrayList<String> sentences = readDevFile(devFile);
 			for (String s : sentences) {
-				/*if(s.startsWith("Jones Medical") || s.startsWith("A _RARE_ man , detained")) {
-					continue;
-				}*/
 				ArrayList<String> viterbiTagged = viterbiAlgorithm(s);
 				for (String sent : viterbiTagged) {
 					taggedWriter.write(sent);
@@ -46,9 +43,7 @@ public class Q5 {
 				taggedWriter.write("\n");
 				taggedWriter.flush();
 			}
-			//viterbiAlgorithm("Jones Medical _RARE_ acquisition");
-			//viterbiAlgorithm("France on Friday _RARE_ another African man seized in a police _RARE_ on a Paris church as about 100 Air");
-
+			taggedWriter.close();
 		}
 		
 		catch (IOException e){
@@ -192,7 +187,17 @@ public class Q5 {
 		}
 		// Use the 'rare' emission parameter.
 		else {
-			ArrayList<String[]> wordStats = tagProbs.get("_RARE_");
+			ArrayList<String[]> wordStats;
+			boolean initialCap = false;
+			if (Character.isUpperCase(word.charAt(0))) {
+				initialCap = true;
+			}
+			if (initialCap) {
+				wordStats = tagProbs.get("_INITCAP_");
+			}
+			else {
+				wordStats = tagProbs.get("_RARE_");
+			}
 			for (String[] s: wordStats) {
 				if (s[0].equals(tag)) {
 					countXY = Double.parseDouble(s[1]);
