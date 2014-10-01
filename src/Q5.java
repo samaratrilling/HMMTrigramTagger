@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.Scanner;
 
 
 public class Q5 {
@@ -18,7 +17,6 @@ public class Q5 {
 	
 	public static void main (String[] args) {
 		
-		Scanner in = new Scanner(System.in);
 		System.out.println("You're about to run question 5. I'm reading tag n-gram counts from ner.counts");
 		String countsFile = "ner3.counts";
 		String devFile = "ner_dev.dat";
@@ -403,23 +401,6 @@ public class Q5 {
 		}
 		String[] mostLikelyTagAndProb = {mostLikelyTag, Double.toString(highestTagProb)};
 		return mostLikelyTagAndProb;
-	}
-	
-	/**
-	 * Computes probability that the given tag sequence will be paired with the given word sequence.
-	 * @param tagSequence
-	 * @param words
-	 * @return
-	 */
-	private static double computeRValue (String[] tagSequence, String[] words) {
-		
-		double productOfQs = 1;
-		double productOfEs = 1;
-		for (int i = 2; i < tagSequence.length; i++) {
-			productOfQs = productOfQs * computeQValue(tagSequence[i-2], tagSequence[i-1], tagSequence[i]);
-			productOfEs = productOfEs * computeEValue(words[i], tagSequence[i]);
-		}
-		return productOfQs * productOfEs;
 	}
 	
 }

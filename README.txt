@@ -13,7 +13,8 @@ just using the pre-saved output in count2.dat
 
 	- If you choose to rerun the function, note that running the function that replaces rare words
 	with _RARE_ can take up to 15 minutes. The replacement function produces ner_train2.dat.
-	You should then run count_freqs.py on ner_train2.dat and pipe the results into a new file.
+	You should then run count_freqs.py on ner_train2.dat and pipe the results into a new file. (I've done this
+	into ner2.counts).
 	$	python count_freqs.py ner_train2.dat > newFile
 
 	- If you choose to use the already-saved output: I have saved the output of re-running count_freqs.py
@@ -32,10 +33,16 @@ just use the pre-saved output in count3.dat.
 - If you choose to rerun the function, note that running the function that replaces rare words
 	can take up to 15 minutes. The replacement function produces ner_train3.dat.
 	You should then run count_freqs.py on ner_train3.dat and pipe the results into a new file.
+	(I've done this into ner3.counts).
 	$	python count_freqs.py ner_train3.dat > newFile
 
 	- If you choose to use the already-saved output: I have saved the output of re-running count_freqs.py
 	on ner_train3.dat into ner3.counts, so you can view it there.
+	You can then run Q5 using the updated data by changing lines 23 and 25 in Q5.java to:
+
+		23 String countsFile = "ner3.counts";
+		24 String devFile = "ner_dev.dat";
+		25 String taggedFile = "q6ViterbiTagged.dat";
 
 
 --------------------------------------------------------------------------------------------------
